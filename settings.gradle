@@ -1,0 +1,2 @@
+rootProject.name = 'taskapp-service-layer'
+include 'taskapp-data-layer'
