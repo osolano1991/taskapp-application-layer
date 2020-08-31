@@ -18,9 +18,11 @@ import cr.una.taskapp.backend.model.Priority;
 import cr.una.taskapp.backend.service.IPriorityService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,8 +41,8 @@ public class PriorityController {
     private ModelMapper modelMapper;
 
     /**
-     * Find all Roles
-     * @return List of DTO Roles
+     * Find all Priorities
+     * @return List of DTO Priorities
      */
     @GetMapping()
     @ResponseBody
@@ -49,6 +51,51 @@ public class PriorityController {
         return roleList.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    /**
+     * Find the priority by id
+     * @return A priority found
+     */
+    @GetMapping("{id}")
+    @ResponseBody
+    public PriorityDto findById(@PathVariable Long id) {
+        Priority priority = service.findById(id);
+        return convertToDto(priority);
+    }
+
+    /**
+     * Save the new Priority
+     * @param priorityDto the priority saved
+     * @return
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public PriorityDto save(@Valid @RequestBody PriorityDto priorityDto) {
+        Priority priority = convertToEntity(priorityDto);
+        return convertToDto(service.create(priority));
+    }
+
+    /**
+     * Update the existing Priority
+     * @param priorityDto the priority saved
+     * @return the priority updated
+     */
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public PriorityDto update(@Valid @RequestBody PriorityDto priorityDto) {
+        Priority priority = convertToEntity(priorityDto);
+        return convertToDto(service.update(priority));
+    }
+
+    /**
+     * Delete user by id
+     * @param id the id of the entity
+     */
+    @DeleteMapping("{id}")
+    @ResponseBody
+    public void deleteById(@PathVariable Long id) {
+        service.deleteById(id);
+    }
+    
     /**
      * Convert from Entity to DTO
      * @param priority entity
