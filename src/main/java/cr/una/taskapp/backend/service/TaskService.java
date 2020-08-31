@@ -1,51 +1,81 @@
 package cr.una.taskapp.backend.service;
 
+import cr.una.taskapp.backend.dao.IPriorityDao;
 import cr.una.taskapp.backend.model.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 /**
- * ITaskService
+ * TaskService
  *
  * The Service for Task
  */
-public interface ITaskService {
+public class TaskService implements ITaskService{
+
+    @Autowired
+    private ITaskService dao;
+
     /**
      * Method to find the entity by id
+     *
      * @param id the id of the entity to find
      * @return the corresponding task
      */
-    public Task findById (final long id);
+    @Override
+    public Task findById(long id) {
+        return dao.findById(id);
+    }
 
     /**
      * Method to find all entities
+     *
      * @return the list of entities of Task
      */
-    public List<Task> findAll();
+    @Override
+    public List<Task> findAll() {
+        return dao.findAll();
+    }
 
     /**
      * Method to create a new entity
+     *
      * @param task the entity to create in the database
      * @return the task created with the corresponding id
      */
-    public Task create (final Task task);
+    @Override
+    public Task create(Task task) {
+        return dao.create(task);
+    }
 
     /**
      * Method to update the entity in the database
+     *
      * @param task the entity with new information to update
      * @return the updated task
      */
-    public Task update (final Task task);
+    @Override
+    public Task update(Task task) {
+        return dao.update(task);
+    }
 
     /**
      * Method to delete a entity in the database
+     *
      * @param task the entity to deleted
      */
-    public void delete (final Task task);
+    @Override
+    public void delete(Task task) {
+        dao.delete(task);
+    }
 
     /**
      * Method to delete a entity in the database by id
+     *
      * @param id the id of the entity to delete
      */
-    public void deleteById (final long id);
+    @Override
+    public void deleteById(long id) {
+        dao.deleteById(id);
+    }
 }
