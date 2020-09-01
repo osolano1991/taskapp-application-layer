@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Sql({
-        "/import-priorities.sql"
+        "/import-initialdata.sql"
 })
 public class InitialDataTest {
 

@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  */
 @Controller
 @CrossOrigin
-@RequestMapping(value = "/api/priorities")
+@RequestMapping(value = "/api/v1/priorities")
 public class PriorityController {
 
     @Autowired
@@ -53,6 +53,7 @@ public class PriorityController {
 
     /**
      * Find the priority by id
+     * Endpoint: /api/v1/priorities/1
      * @return A priority found
      */
     @GetMapping("{id}")
